@@ -15,6 +15,13 @@ function App() {
     updatdTasks.splice(index, 1);
     setTasks(updatdTasks);
   }
+  function isEmpty() {
+    if (tasks.length == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   return (
     <div style={{ marginTop: 100, marginLeft: 100 }}>
       <form
@@ -30,15 +37,29 @@ function App() {
           style={{ fontSize: 20 }}
           type="text"
           className="taskInput"
+          required
           onChange={(e) => setInputValue(e.target.value)}
         />
         <button type="submit" style={{ width: 50, height: 30 }}>
           Add
         </button>
       </form>
-      {tasks.map((task, index) => (
-        <Task key={index} task={task} deleteTask={() => deleteTask(index)} />
-      ))}
+
+      {tasks.length == 0 ? (
+        <h1
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          Task yoxdur
+        </h1>
+      ) : (
+        tasks.map((task, index) => (
+          <Task key={index} task={task} deleteTask={() => deleteTask(index)} />
+        ))
+      )}
     </div>
   );
 }
